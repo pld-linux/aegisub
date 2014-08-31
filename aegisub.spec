@@ -5,12 +5,12 @@
 # - our cxxflags
 
 # Conditional build:
-%bcond_with		ffms2
+%bcond_without	ffms2	# build ffms2 A/V provider
 
 Summary:	Subtitle editor
 Name:		aegisub
 Version:	3.2.0
-Release:	0.1
+Release:	1
 License:	BSD
 Group:		X11/Applications
 Source0:	http://ftp.aegisub.org/pub/releases/%{name}-%{version}.tar.xz
@@ -21,6 +21,7 @@ BuildRequires:	alsa-lib-devel
 BuildRequires:	autoconf
 BuildRequires:	automake
 BuildRequires:	boost-devel >= 1.50
+%{?with_ffms2:BuildRequires:	ffms2-devel}
 BuildRequires:	fftw3-devel >= 3.3
 BuildRequires:	fontconfig-devel >= 1:2.4
 BuildRequires:	hunspell-devel >= 1.2.0
@@ -35,9 +36,6 @@ BuildRequires:	wxGTK2-unicode-gl-devel
 BuildRequires:	wxWidgets-devel >= 2.9.5
 BuildRequires:	xz
 BuildRequires:	zlib-devel
-%if %{with ffms2}
-BuildRequires:	pkgconfig(ffms2)
-%endif
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %description
@@ -62,6 +60,7 @@ mv vendor.keep/{luabins,luajit,universalchardet} vendor
 	--with-player-audio=PulseAudio \
 	--disable-update-checker \
 	--with-wx-config=wx-gtk2-unicode-config \
+	%{__with_without ffms2} \
 	--without-oss
 
 %{__make}
