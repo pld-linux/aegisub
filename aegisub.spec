@@ -1,5 +1,7 @@
 # TODO
 # - needs wx-config to build with wxWidgets
+# - system luajit
+# - our cxxflags
 
 # Conditional build:
 %bcond_with		ffms2
@@ -28,6 +30,7 @@ BuildRequires:	lua51-devel
 BuildRequires:	pkg-config >= 0.20
 BuildRequires:	pulseaudio-devel >= 0.5
 BuildRequires:	tar >= 1:1.22
+BuildRequires:	wxGTK2-unicode-gl-devel
 BuildRequires:	wxWidgets-devel >= 2.9.5
 BuildRequires:	xz
 BuildRequires:	zlib-devel
@@ -50,15 +53,10 @@ support using these advanced functions with ease.
 %setup -q
 
 %build
-%{__gettextize}
-%{__libtoolize}
-%{__aclocal}
-%{__autoconf}
-%{__autoheader}
-
 %configure \
 	--with-player-audio=PulseAudio \
 	--disable-update-checker \
+	--with-wx-config=wx-gtk2-unicode-config \
 	--without-oss
 
 %{__make}
