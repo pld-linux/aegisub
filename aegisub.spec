@@ -1,6 +1,7 @@
 # TODO
-# - needs wx-config to build with wxWidgets
-# - system luajit
+# - unvendor vendor/luabins
+# - unvendor vendor/luajit
+# - unvendor vendor/universalchardet
 # - our cxxflags
 
 # Conditional build:
@@ -52,6 +53,10 @@ support using these advanced functions with ease.
 %prep
 %setup -q
 
+mv vendor{,.keep}
+mkdir vendor
+mv vendor.keep/{luabins,luajit,universalchardet} vendor
+
 %build
 %configure \
 	--with-player-audio=PulseAudio \
@@ -63,7 +68,8 @@ support using these advanced functions with ease.
 
 %install
 rm -rf $RPM_BUILD_ROOT
-%make_install
+%{__make} install \
+	DESTDIR=$RPM_BUILD_ROOT
 
 %find_lang %{name}-32
 
