@@ -24,9 +24,11 @@ BuildRequires:	boost-devel >= 1.50
 %{?with_ffms2:BuildRequires:	ffms2-devel}
 BuildRequires:	fftw3-devel >= 3.3
 BuildRequires:	fontconfig-devel >= 1:2.4
+BuildRequires:	gettext-tools
 BuildRequires:	hunspell-devel >= 1.2.0
 BuildRequires:	intltool
 BuildRequires:	libass-devel
+BuildRequires:	libicu-devel
 BuildRequires:	libstdc++-devel
 BuildRequires:	lua51-devel
 BuildRequires:	pkg-config >= 0.20
