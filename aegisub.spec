@@ -38,6 +38,8 @@ BuildRequires:	wxGTK2-unicode-gl-devel
 BuildRequires:	wxWidgets-devel >= 2.9.5
 BuildRequires:	xz
 BuildRequires:	zlib-devel
+# missing atomic_ops
+ExcludeArch:	i486
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %description
