@@ -71,6 +71,8 @@ rm -rf $RPM_BUILD_ROOT
 %{__make} install \
 	DESTDIR=$RPM_BUILD_ROOT
 
+ln -s %{name}-3.2 $RPM_BUILD_ROOT%{_bindir}/%{name}
+
 %find_lang %{name}-32
 
 %clean
@@ -79,7 +81,8 @@ rm -rf $RPM_BUILD_ROOT
 %files -f %{name}-32.lang
 %defattr(644,root,root,755)
 %doc LICENCE
-%attr(755,root,root) %{_bindir}/aegisub-3.2
+%attr(755,root,root) %{_bindir}/%{name}
+%attr(755,root,root) %{_bindir}/%{name}-3.2
 %{_datadir}/%{name}
 %{_desktopdir}/%{name}.desktop
 %{_iconsdir}/hicolor/*/apps/%{name}.*
