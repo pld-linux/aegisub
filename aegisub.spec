@@ -38,6 +38,8 @@ BuildRequires:	wxGTK2-unicode-gl-devel
 BuildRequires:	wxWidgets-devel >= 2.9.5
 BuildRequires:	xz
 BuildRequires:	zlib-devel
+Requires:	desktop-file-utils
+Requires:	gtk-update-icon-cache
 # missing atomic_ops
 ExcludeArch:	i486
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
@@ -85,6 +87,14 @@ ln -s %{name}-3.2 $RPM_BUILD_ROOT%{_bindir}/%{name}
 
 %clean
 rm -rf $RPM_BUILD_ROOT
+
+%post
+%update_desktop_database
+%update_icon_cache hicolor
+
+%postun
+%update_desktop_database
+%update_icon_cache hicolor
 
 %files -f %{name}-32.lang
 %defattr(644,root,root,755)
