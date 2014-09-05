@@ -10,7 +10,7 @@
 Summary:	Subtitle editor
 Name:		aegisub
 Version:	3.2.0
-Release:	2
+Release:	3
 License:	BSD
 Group:		X11/Applications
 Source0:	http://ftp.aegisub.org/pub/releases/%{name}-%{version}.tar.xz
@@ -78,10 +78,10 @@ rm -rf $RPM_BUILD_ROOT
 
 ln -s %{name}-3.2 $RPM_BUILD_ROOT%{_bindir}/%{name}
 
-%{__rm} $RPM_BUILD_ROOT%{_localedir}/fr_FR
-%{__rm} $RPM_BUILD_ROOT%{_localedir}/pt_PT
-%{__rm} $RPM_BUILD_ROOT%{_localedir}/sr_RS
-%{__rm} $RPM_BUILD_ROOT%{_localedir}/sr_RS@latin
+%{__rm} -r $RPM_BUILD_ROOT%{_localedir}/fr_FR
+%{__rm} -r $RPM_BUILD_ROOT%{_localedir}/pt_PT
+%{__rm} -r $RPM_BUILD_ROOT%{_localedir}/sr_RS
+%{__rm} -r $RPM_BUILD_ROOT%{_localedir}/sr_RS@latin
 
 %find_lang %{name}-32
 
