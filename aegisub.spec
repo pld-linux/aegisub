@@ -11,7 +11,7 @@ Summary:	Subtitle editor
 Summary(pl.UTF-8):	Edytor napisów
 Name:		aegisub
 Version:	3.2.1
-Release:	1
+Release:	2
 License:	BSD
 Group:		X11/Applications
 Source0:	http://ftp.aegisub.org/pub/releases/%{name}-%{version}.tar.xz
@@ -106,6 +106,7 @@ ln -s %{name}-3.2 $RPM_BUILD_ROOT%{_bindir}/%{name}
 %{__mv} $RPM_BUILD_ROOT%{_localedir}/{pt_PT,pt}
 %{__mv} $RPM_BUILD_ROOT%{_localedir}/{sr_RS,sr}
 %{__mv} $RPM_BUILD_ROOT%{_localedir}/{sr_RS,sr}@latin
+%{__mv} $RPM_BUILD_ROOT%{_localedir}/{uk_UA,uk}
 
 %find_lang %{name}-32
 
