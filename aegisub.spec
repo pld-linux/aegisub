@@ -16,6 +16,7 @@ License:	BSD
 Group:		X11/Applications
 Source0:	http://ftp.aegisub.org/pub/releases/%{name}-%{version}.tar.xz
 # Source0-md5:	d80e852c34811add358c06d77f5cd40d
+Patch0:		pthread.patch
 URL:		http://www.aegisub.net/
 # AC_AGI_COMPILE tries to run test program which tries to open device and most likely fails
 #BuildRequires:	OpenAL-devel >= 0.0.8
@@ -80,6 +81,7 @@ obsługa tych zaawansowanych funkcji.
 
 %prep
 %setup -q
+%patch0 -p1
 
 %{__mv} vendor{,.keep}
 mkdir vendor
