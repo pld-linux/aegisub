@@ -11,7 +11,7 @@ Summary:	Subtitle editor
 Summary(pl.UTF-8):	Edytor napisów
 Name:		aegisub
 Version:	3.2.2
-Release:	12
+Release:	13
 License:	BSD
 Group:		X11/Applications
 Source0:	http://ftp.aegisub.org/pub/releases/%{name}-%{version}.tar.xz
@@ -20,7 +20,7 @@ Patch0:		pthread.patch
 Patch1:		%{name}-icu.patch
 Patch2:		%{name}-icu64.patch
 Patch3:		%{name}-boost-1.70.patch
-URL:		http://www.aegisub.net/
+URL:		http://www.aegisub.org/
 # AC_AGI_COMPILE tries to run test program which tries to open device and most likely fails
 #BuildRequires:	OpenAL-devel >= 0.0.8
 BuildRequires:	OpenGL-devel
