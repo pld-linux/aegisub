@@ -1,0 +1,22 @@
+--- aegisub-3.2.2/configure.ac~	2014-12-08 01:07:09.000000000 +0100
++++ aegisub-3.2.2/configure.ac	2020-03-18 14:58:15.307035878 +0100
+@@ -142,7 +142,7 @@
+   CFLAGS="$CFLAGS -Wall -Wextra -Wno-unused-parameter -std=gnu99 -pipe -g"
+   CXXFLAGS="$CXXFLAGS -Wall -Wextra -Wno-unused-parameter -fno-strict-aliasing -pipe -g"
+   AC_CXX_FLAG([-std=c++11])
+-  AC_CXX_FLAG([-Wno-c++11-narrowing])
++  AC_CXX_FLAG([-Wno-narrowing])
+   AC_C_FLAG([-Wno-unused-local-typedefs])
+   AC_CXX_FLAG([-Wno-unused-local-typedefs])
+ 
+@@ -151,8 +151,8 @@
+     CFLAGS="$CFLAGS -O0"
+     CXXFLAGS="$CXXFLAGS -O0"
+   ], [
+-    CFLAGS="$CFLAGS -O3"
+-    CXXFLAGS="$CXXFLAGS -O3"
++    CFLAGS="$CFLAGS"
++    CXXFLAGS="$CXXFLAGS"
+   ])
+ ])
+ 
