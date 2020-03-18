@@ -1,4 +1,5 @@
 # TODO
+# - make 4.3 breaks build
 # - unvendor vendor/luabins
 # - unvendor vendor/luajit
 # - unvendor vendor/universalchardet
@@ -98,7 +99,12 @@ mkdir vendor
 %{__mv} vendor.keep/{luabins,luajit,universalchardet} vendor
 
 %build
+<<<<<<< Updated upstream
 %{__aclocal} -I m4macros
+=======
+%{__libtoolize}
+%{__aclocal}
+>>>>>>> Stashed changes
 %{__autoconf}
 %{__autoheader}
 %configure \
