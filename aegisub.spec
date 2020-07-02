@@ -1,5 +1,4 @@
 # TODO
-# - make 4.3 breaks build
 # - unvendor vendor/luabins
 # - unvendor vendor/luajit
 # - unvendor vendor/universalchardet
@@ -22,6 +21,7 @@ Patch1:		%{name}-icu.patch
 Patch2:		%{name}-icu64.patch
 Patch3:		%{name}-boost-1.70.patch
 Patch4:		cflags.patch
+Patch5:		make-4.3.patch
 URL:		http://www.aegisub.org/
 # AC_AGI_COMPILE tries to run test program which tries to open device and most likely fails
 #BuildRequires:	OpenAL-devel >= 0.0.8
@@ -93,6 +93,7 @@ obsługa tych zaawansowanych funkcji.
 %patch2 -p1
 %patch3 -p1
 %patch4 -p1
+%patch5 -p1
 
 %{__mv} vendor{,.keep}
 mkdir vendor
