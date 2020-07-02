@@ -99,12 +99,7 @@ mkdir vendor
 %{__mv} vendor.keep/{luabins,luajit,universalchardet} vendor
 
 %build
-<<<<<<< Updated upstream
 %{__aclocal} -I m4macros
-=======
-%{__libtoolize}
-%{__aclocal}
->>>>>>> Stashed changes
 %{__autoconf}
 %{__autoheader}
 %configure \
