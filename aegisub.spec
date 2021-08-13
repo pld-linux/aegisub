@@ -20,15 +20,12 @@ Patch0:		pthread.patch
 Patch1:		%{name}-icu.patch
 Patch2:		%{name}-icu64.patch
 Patch3:		%{name}-boost-1.70.patch
-Patch4:		cflags.patch
-Patch5:		make-4.3.patch
+Patch4:		make-4.3.patch
 URL:		http://www.aegisub.org/
 # AC_AGI_COMPILE tries to run test program which tries to open device and most likely fails
 #BuildRequires:	OpenAL-devel >= 0.0.8
 BuildRequires:	OpenGL-devel
 BuildRequires:	alsa-lib-devel
-BuildRequires:	autoconf >= 2.57
-BuildRequires:	automake
 BuildRequires:	boost-devel >= 1.50.0
 %{?with_ffms2:BuildRequires:	ffms2-devel >= 2.16}
 BuildRequires:	fftw3-devel >= 3.3
@@ -93,17 +90,14 @@ obsługa tych zaawansowanych funkcji.
 %patch2 -p1
 %patch3 -p1
 %patch4 -p1
-%patch5 -p1
 
 %{__mv} vendor{,.keep}
 mkdir vendor
 %{__mv} vendor.keep/{luabins,luajit,universalchardet} vendor
 
 %build
-%{__aclocal} -I m4macros
-%{__autoconf}
-%{__autoheader}
 %configure \
+	--disable-compiler-flags \
 	--disable-update-checker \
 	%{__with_without ffms2} \
 	--without-oss \
