@@ -106,6 +106,7 @@ export C
 %configure \
 	--disable-compiler-flags \
 	--disable-update-checker \
+	--with-boost-libdir=%{_libdir} \
 	%{__with_without ffms2} \
 	--without-oss \
 	--with-player-audio=PulseAudio \
