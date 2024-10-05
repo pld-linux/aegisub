@@ -17,23 +17,26 @@ Version:	3.2.2
 Release:	22
 License:	BSD
 Group:		X11/Applications
-#Source0:	http://ftp.aegisub.org/pub/releases/%{name}-%{version}.tar.xz
+#Source0Download: https://aegisub.org/downloads/
+#Source0:	https://github.com/Aegisub/Aegisub/releases/download/v%{version}/%{name}-%{version}.tar.xz
 Source0:	https://github.com/Aegisub/Aegisub/archive/%{snap}/%{name}-%{version}-%{snap}.tar.gz
 # Source0-md5:	ecb9b5441ead4135c9b1baec0abdec49
 Patch0:		make-4.3.patch
 Patch1:		boost181.patch
-URL:		http://www.aegisub.org/
+URL:		https://aegisub.org/
 # AC_AGI_COMPILE tries to run test program which tries to open device and most likely fails
 #BuildRequires:	OpenAL-devel >= 0.0.8
 BuildRequires:	OpenGL-devel
 BuildRequires:	alsa-lib-devel
+BuildRequires:	autoconf >= 2.57
+BuildRequires:	automake
 BuildRequires:	boost-devel >= 1.50.0
 %{?with_ffms2:BuildRequires:	ffms2-devel >= 2.16}
 BuildRequires:	fftw3-devel >= 3.3
 BuildRequires:	fontconfig-devel >= 1:2.4
 # pkgconfig(freetype2) >= 9.7.0
 BuildRequires:	freetype-devel >= 1:2.1.9
-BuildRequires:	gettext-tools
+BuildRequires:	gettext-tools >= 0.18.1
 BuildRequires:	hunspell-devel >= 1.2.0
 BuildRequires:	intltool
 BuildRequires:	libass-devel >= 0.9.7
@@ -43,6 +46,7 @@ BuildRequires:	lua51-devel
 BuildRequires:	pkgconfig >= 1:0.20
 BuildRequires:	portaudio-devel >= 19
 BuildRequires:	pulseaudio-devel >= 0.5
+BuildRequires:	sed >= 4.0
 BuildRequires:	tar >= 1:1.22
 BuildRequires:	uchardet-devel
 BuildRequires:	wxGTK3-unicode-gl-devel >= 3.0.0
@@ -103,7 +107,12 @@ mkdir vendor
 %{__mv} vendor.keep/{luabins,luajit} vendor
 
 %build
-./autogen.sh
+%{__gettextize}
+# po/Makefile is custom file, don't generate it
+%{__sed} -i 's,po/Makefile\.in,,' configure.ac
+%{__aclocal} -I m4macros
+%{__autoconf}
+%{__autoheader}
 export C
 %configure \
 	--disable-compiler-flags \
@@ -118,6 +127,7 @@ export C
 
 %install
 rm -rf $RPM_BUILD_ROOT
+
 %{__make} install \
 	DESTDIR=$RPM_BUILD_ROOT
 
@@ -143,8 +153,8 @@ rm -rf $RPM_BUILD_ROOT
 %files -f %{name}.lang
 %defattr(644,root,root,755)
 %doc LICENCE README.md
-%attr(755,root,root) %{_bindir}/%{name}
+%attr(755,root,root) %{_bindir}/aegisub
 %{_datadir}/%{name}
-%{_desktopdir}/%{name}.desktop
+%{_desktopdir}/aegisub.desktop
 %{_datadir}/metainfo/aegisub.appdata.xml
-%{_iconsdir}/hicolor/*/apps/%{name}.*
+%{_iconsdir}/hicolor/*/apps/aegisub.*
