@@ -14,7 +14,7 @@ Summary:	Subtitle editor
 Summary(pl.UTF-8):	Edytor napisów
 Name:		aegisub
 Version:	3.2.2
-Release:	22
+Release:	23
 License:	BSD
 Group:		X11/Applications
 #Source0Download: https://aegisub.org/downloads/
