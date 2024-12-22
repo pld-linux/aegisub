@@ -1,0 +1,10 @@
+--- Aegisub-3.4.0/meson.build~	2024-12-19 00:06:50.000000000 +0100
++++ Aegisub-3.4.0/meson.build	2024-12-22 21:30:24.836666180 +0100
+@@ -382,7 +382,6 @@
+ subdir('packages')
+ subdir('po')
+ subdir('src')
+-subdir('tests')
+ 
+ aegisub_cpp_pch = ['src/include/agi_pre.h']
+ aegisub_c_pch = ['src/include/agi_pre_c.h']

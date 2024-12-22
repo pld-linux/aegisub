@@ -1,35 +1,28 @@
 # TODO
 # - unvendor vendor/luabins
-# - unvendor vendor/luajit
 # - unvendor vendor/universalchardet
 # - our cxxflags
 
 # Conditional build:
 %bcond_without	ffms2	# build ffms2 A/V provider
 
-%define		snap	85f711f
-%define		gitrev	85f711fccc75f01fd44f25537b8777df10c4b3d1
-
 Summary:	Subtitle editor
 Summary(pl.UTF-8):	Edytor napisów
 Name:		aegisub
-Version:	3.2.2
-Release:	23
+Version:	3.4.0
+Release:	1
 License:	BSD
 Group:		X11/Applications
 #Source0Download: https://aegisub.org/downloads/
-#Source0:	https://github.com/Aegisub/Aegisub/releases/download/v%{version}/%{name}-%{version}.tar.xz
-Source0:	https://github.com/Aegisub/Aegisub/archive/%{snap}/%{name}-%{version}-%{snap}.tar.gz
-# Source0-md5:	ecb9b5441ead4135c9b1baec0abdec49
-Patch0:		make-4.3.patch
-Patch1:		boost181.patch
+Source0:	https://github.com/TypesettingTools/Aegisub/archive/v%{version}/%{name}-%{version}.tar.gz
+# Source0-md5:	850643f17021294aa14891a3fb200888
+Patch0:		no-tests.patch
+Patch1:		boost-1.87.patch
 URL:		https://aegisub.org/
 # AC_AGI_COMPILE tries to run test program which tries to open device and most likely fails
 #BuildRequires:	OpenAL-devel >= 0.0.8
 BuildRequires:	OpenGL-devel
 BuildRequires:	alsa-lib-devel
-BuildRequires:	autoconf >= 2.57
-BuildRequires:	automake
 BuildRequires:	boost-devel >= 1.50.0
 %{?with_ffms2:BuildRequires:	ffms2-devel >= 2.16}
 BuildRequires:	fftw3-devel >= 3.3
@@ -37,18 +30,24 @@ BuildRequires:	fontconfig-devel >= 1:2.4
 # pkgconfig(freetype2) >= 9.7.0
 BuildRequires:	freetype-devel >= 1:2.1.9
 BuildRequires:	gettext-tools >= 0.18.1
+BuildRequires:	gmock-devel
+BuildRequires:	gtest-devel
 BuildRequires:	hunspell-devel >= 1.2.0
 BuildRequires:	intltool
 BuildRequires:	libass-devel >= 0.9.7
 BuildRequires:	libicu-devel >= 4.8.1.1
 BuildRequires:	libstdc++-devel
 BuildRequires:	lua51-devel
+BuildRequires:	luajit-devel
+BuildRequires:	meson
+BuildRequires:	ninja
 BuildRequires:	pkgconfig >= 1:0.20
 BuildRequires:	portaudio-devel >= 19
 BuildRequires:	pulseaudio-devel >= 0.5
 BuildRequires:	sed >= 4.0
 BuildRequires:	tar >= 1:1.22
 BuildRequires:	uchardet-devel
+BuildRequires:	wxGTK3-unicode-devel >= 3.0.0
 BuildRequires:	wxGTK3-unicode-gl-devel >= 3.0.0
 BuildRequires:	wxWidgets-devel >= 3.0.0
 BuildRequires:	xz
@@ -90,46 +89,31 @@ napisach, poza samym powiązaniem z czasem. Celem Aegisubs jest łatwa
 obsługa tych zaawansowanych funkcji.
 
 %prep
-%setup -q -n Aegisub-%{gitrev}
-%patch0 -p1
-%patch1 -p1
+%setup -q -n Aegisub-%{version}
+%patch -P 0 -p1
+%patch -P 1 -p1
+
+%build
+ln -sf %{_bindir}/wx-gtk3-unicode-config ./wx-config
+export PATH=".:$PATH"
+%meson build \
+	-Denable_update_checker=false \
+	-Dsystem_luajit=true
 
 cat <<'EOF' >build/git_version.h
-#define BUILD_GIT_VERSION_NUMBER 9010
-#define BUILD_GIT_VERSION_STRING "3.2.2.6f546951b"
+#define BUILD_GIT_VERSION_NUMBER 9366
+#define BUILD_GIT_VERSION_STRING "9366-v3.4.0-b0fc74109"
 #define TAGGED_RELEASE 0
 #define INSTALLER_VERSION "0.0.0"
 #define RESOURCE_BASE_VERSION 0, 0, 0
 EOF
 
-%{__mv} vendor{,.keep}
-mkdir vendor
-%{__mv} vendor.keep/{luabins,luajit} vendor
-
-%build
-%{__gettextize}
-# po/Makefile is custom file, don't generate it
-%{__sed} -i 's,po/Makefile\.in,,' configure.ac
-%{__aclocal} -I m4macros
-%{__autoconf}
-%{__autoheader}
-export C
-%configure \
-	--disable-compiler-flags \
-	--disable-update-checker \
-	--with-boost-libdir=%{_libdir} \
-	%{__with_without ffms2} \
-	--without-oss \
-	--with-player-audio=PulseAudio \
-	--with-wx-config=wx-gtk3-unicode-config
-
-%{__make}
+%ninja_build -C build
 
 %install
 rm -rf $RPM_BUILD_ROOT
 
-%{__make} install \
-	DESTDIR=$RPM_BUILD_ROOT
+%ninja_install -C build
 
 %{__mv} $RPM_BUILD_ROOT%{_localedir}/{fr_FR,fr}
 %{__mv} $RPM_BUILD_ROOT%{_localedir}/{pt_PT,pt}
@@ -156,5 +140,4 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %{_bindir}/aegisub
 %{_datadir}/%{name}
 %{_desktopdir}/aegisub.desktop
-%{_datadir}/metainfo/aegisub.appdata.xml
 %{_iconsdir}/hicolor/*/apps/aegisub.*
