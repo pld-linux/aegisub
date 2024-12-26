@@ -45,6 +45,7 @@ BuildRequires:	ninja
 BuildRequires:	pkgconfig >= 1:0.20
 BuildRequires:	portaudio-devel >= 19
 BuildRequires:	pulseaudio-devel >= 0.5
+BuildRequires:	rpmbuild(macros) >= 1.736
 BuildRequires:	sed >= 4.0
 BuildRequires:	tar >= 1:1.22
 BuildRequires:	uchardet-devel
