@@ -65,7 +65,7 @@ Requires:	libass >= 0.9.7
 Requires:	libicu >= 4.8.1.1
 Requires:	pulseaudio-libs >= 0.5
 # due to luajit usage
-ExclusiveArch:	%{ix86} %{x8664} arm mips ppc
+ExclusiveArch:	%{ix86} %{x8664} %{arm} aarch64 mips mips64 mipsel ppc
 # missing atomic_ops
 ExcludeArch:	i386 i486
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
