@@ -18,6 +18,7 @@ Source0:	https://github.com/TypesettingTools/Aegisub/archive/v%{version}/%{name}
 # Source0-md5:	850643f17021294aa14891a3fb200888
 Patch0:		no-tests.patch
 Patch1:		boost-1.87.patch
+Patch2:		luajit-5.2.patch
 URL:		https://aegisub.org/
 # AC_AGI_COMPILE tries to run test program which tries to open device and most likely fails
 #BuildRequires:	OpenAL-devel >= 0.0.8
@@ -92,6 +93,7 @@ obsługa tych zaawansowanych funkcji.
 %setup -q -n Aegisub-%{version}
 %patch -P 0 -p1
 %patch -P 1 -p1
+%patch -P 2 -p1
 
 %build
 ln -sf %{_bindir}/wx-gtk3-unicode-config ./wx-config

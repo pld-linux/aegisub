@@ -1,0 +1,11 @@
+--- Aegisub-3.4.0/meson.build.orig	2024-12-26 17:30:57.458359507 +0100
++++ Aegisub-3.4.0/meson.build	2024-12-26 17:39:25.050316588 +0100
+@@ -316,7 +316,7 @@
+     deps += [libcurl_dep]
+ endif
+ 
+-luajit = dependency('luajit', version: '>=2.0.0', required: get_option('system_luajit'))
++luajit = dependency('luajit52', 'luajit', version: '>=2.0.0', required: get_option('system_luajit'))
+ if luajit.found() and luajit.type_name() != 'internal'
+     luajit_test = cc.run('''#include <lauxlib.h>
+ int main(void)
