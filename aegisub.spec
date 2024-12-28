@@ -39,7 +39,7 @@ BuildRequires:	libass-devel >= 0.9.7
 BuildRequires:	libicu-devel >= 4.8.1.1
 BuildRequires:	libstdc++-devel
 BuildRequires:	lua51-devel
-BuildRequires:	luajit-devel
+BuildRequires:	luajit52-devel
 BuildRequires:	meson >= 0.57.0
 BuildRequires:	ninja
 BuildRequires:	pkgconfig >= 1:0.20
